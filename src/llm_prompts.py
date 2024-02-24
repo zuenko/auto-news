@@ -45,7 +45,7 @@ Double check before responding, ensure the response can be parsed by Python json
 The user input text: {content}
 """
 
-
+# Deprecated
 LLM_PROMPT_SUMMARY_COMBINE_PROMPT = """
 Write a concise summary of the following text delimited by triple backquotes.
 Summarize the main points and their comprehensive 
@@ -61,6 +61,7 @@ NUMBERED LIST SUMMARY:
 
 
 # With translation (Notes: use with suffix together)
+# Deprecated
 LLM_PROMPT_SUMMARY_COMBINE_PROMPT2 = """
 Write a concise summary of the following text delimited by triple backquotes.
 Summarize the main points and their comprehensive 
@@ -76,8 +77,13 @@ LLM_PROMPT_SUMMARY_COMBINE_PROMPT2_SUFFIX = """
 NUMBERED LIST SUMMARY IN BOTH ENGLISH AND {}, AFTER FINISHING ALL ENGLISH PART, THEN FOLLOW BY {} PART, USE '===' AS THE SEPARATOR:
 """
 
-LLM_PROMPT_SUMMARY_COMBINE_PROMPT3 = """
-Write a concise and precise numbered list summary of the following text without losing any numbers and key points (English numbers need to be converted to digital numbers):
+LLM_PROMPT_SUMMARY_COMBINE_PROMPT3 = """Summarize the main points and their comprehensive explanations from below 
+text, presenting them under appropriate headings and use points. Use various Emoji to symbolize different sections, 
+and format the content as a cohesive paragraph under each heading. Ensure the summary is clear, detailed, 
+and informative, reflecting the executive summary style found in news articles.  Avoid using phrases that directly 
+reference 'the script provides' to maintain a direct and objective tone.
+
+Text:
 ```{text}```
 """
 

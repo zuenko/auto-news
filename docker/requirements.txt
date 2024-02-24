@@ -25,8 +25,8 @@ pytube
 llama-index>=0.9.*
 
 # Vector database
-chromadb>=0.4.*
-pymilvus===2.2.8
+chromadb==0.4.22
+pymilvus===2.3.5
 pinecone-client
 
 # RSS
@@ -49,8 +49,12 @@ pymupdf
 
 # AutoGen
 pyautogen==0.2.2
+SQLAlchemy==2.0.8
 docker
 duckduckgo_search
+
+# Translation
+lingua-language-detector
 
 # Remove it once httpx fix the dependency issue
 httpx[socks]

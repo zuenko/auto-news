@@ -263,14 +263,17 @@ class OperatorDeepDive(OperatorBase):
                 # After all iterations, do translation if needed
                 if os.getenv("TRANSLATION_LANG"):
                     llm_translation_response = llm_agent_trans.run(dd_page["__deepdive"])
-                    print(f"LLM: Translation response: {llm_translation_response}")
-                    dd_page["__translation_deepdive"] = llm_translation_response
+                    if llm_translation_response is not None:
+                        print(f"LLM: Translation response: {llm_translation_response}")
+                        dd_page["__translation_deepdive"] = llm_translation_response
 
                 dd_pages.append(dd_page)
 
             except Exception as e:
                 err += 1
                 print(f"[ERROR] Exception occurred during LLM_Agent.generate: {e}")
+                print(e.args)
+                print(e.with_traceback)
 
         print(f"Returns pages: {len(dd_pages)}, total {tot}, errors {err}")
         return dd_pages

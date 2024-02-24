@@ -14,6 +14,7 @@ from langchain.document_loaders import ArxivLoader
 from langchain.utilities.arxiv import ArxivAPIWrapper
 from langchain_google_genai import ChatGoogleGenerativeAI
 import google.generativeai as genai
+from lingua import LanguageDetectorBuilder
 
 import llm_prompts
 
@@ -367,6 +368,7 @@ class LLMAgentJournal(LLMAgentBase):
 class LLMAgentTranslation(LLMAgentBase):
     def __init__(self, api_key="", model_name="gpt-3.5-turbo"):
         super().__init__(api_key, model_name)
+        self.language_detector = LanguageDetectorBuilder.from_all_languages().with_low_accuracy_mode().build()
 
     def init_prompt(self, prompt=None, trans_lang=None):
         if not prompt:
@@ -379,6 +381,10 @@ class LLMAgentTranslation(LLMAgentBase):
         self._init_prompt(prompt)
 
     def run(self, text: str):
+        language = self.language_detector.detect_language_of(text)
+        if os.getenv("TRANSLATION_LANG") not in [language.iso_code_639_1.name.lower(),
+                                                 language.iso_code_639_3.name.lower()]:
+            return None
         tokens = self.get_num_tokens(text)
         print(f"[LLMAgentTranslation] number of tokens: {tokens}")
 
