@@ -137,7 +137,7 @@ services:
     <<: *airflow-common
     command: webserver
     ports:
-      - "8080:8080"
+      - "8181:8080"
     environment:
       <<: *airflow-common-env
     healthcheck:
@@ -187,7 +187,6 @@ services:
           echo "[pip] Installation finished"
           echo "[pip] langchain version (after): `pip list | grep langchain`"
         fi
-        pip3 install httpx[socks]
         echo "=================================================="
         echo "Start airflow worker ...  "
         echo "=================================================="
@@ -205,6 +204,8 @@ services:
       # Required to handle warm shutdown of the celery workers properly
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
+      http_proxy: ${PROXY}
+      https_proxy: ${PROXY}
     restart: always
     user: "${AIRFLOW_UID:-50000}:0"
     depends_on:

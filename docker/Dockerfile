@@ -67,7 +67,10 @@ ADD pyproject.toml .
 RUN set -ex; \
     pip install poetry
 
-# RUN poetry install
-# # Install deps
 RUN set -ex; \
-    pip install -r requirements.txt
+    pip install --upgrade setuptools
+
+RUN poetry install
+# # Install deps
+# RUN set -ex; \
+#     pip install -r requirements.txt
