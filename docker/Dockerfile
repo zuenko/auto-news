@@ -68,7 +68,7 @@ RUN set -ex; \
     pip install poetry
 
 RUN set -ex; \
-    pip install --upgrade setuptools
+    pip install --upgrade setuptools grpcio pip
 
 RUN poetry install
 # # Install deps
